@@ -5,7 +5,9 @@
   },
   "dependencies": {
     "dotnet-test-xunit": "2.2.0-*",
-    "Microsoft.AspNetCore.Mvc.RazorPages": "1.0.0-*",
+    "Microsoft.AspNetCore.Mvc.RazorPages": {
+      "target": "project"
+    },
     "Microsoft.AspNetCore.Mvc.TestCommon": {
       "target": "project"
     },
