@@ -30,25 +30,25 @@ namespace Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure
                 content = content != null ? content.Trim() : content;
             }
 
-            if (content != null && content.StartsWith(PageDirective, StringComparison.Ordinal))
+            if (content == null || !content.StartsWith(PageDirective, StringComparison.Ordinal))
             {
-                template = content.Substring(PageDirective.Length, content.Length - PageDirective.Length).Trim();
-
-                if (template.StartsWith("\"") && template.EndsWith("\""))
-                {
-                    template = template.Substring(1, template.Length - 2);
-                }
-                // If it's not in quotes it's not our template
-                else
-                {
-                    template = string.Empty;
-                }
-
-                return true;
+                template = null;
+                return false;
             }
 
-            template = null;
-            return false;
+            template = content.Substring(PageDirective.Length, content.Length - PageDirective.Length).TrimStart();
+
+            if (template.StartsWith("\"") && template.EndsWith("\""))
+            {
+                template = template.Substring(1, template.Length - 2);
+            }
+            // If it's not in quotes it's not our template
+            else
+            {
+                template = string.Empty;
+            }
+
+            return true;
         }
     }
 }
