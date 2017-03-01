@@ -185,7 +185,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     ModelDirective.Register(b);
                     PageDirective.Register(b);
 
-                    b.AddTargetExtension(new InjectTargetExtension());
+                    b.AddTargetExtension(new InjectDirectiveTargetExtension());
                     
                     b.Features.Add(new ModelExpressionPass());
                     b.Features.Add(new PagesPropertyInjectionPass());

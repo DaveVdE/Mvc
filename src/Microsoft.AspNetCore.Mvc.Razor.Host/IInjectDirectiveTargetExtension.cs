@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Razor.Evolution.CodeGeneration;
 
 namespace Microsoft.AspNetCore.Mvc.Razor.Host
 {
-    public interface IInjectTargetExtension : IRuntimeTargetExtension
+    public interface IInjectDirectiveTargetExtension : IRuntimeTargetExtension
     {
-        void WriteInjectProperty(CSharpRenderingContext context, InjectIRNode node);
+        void WriteInjectProperty(CSharpRenderingContext context, InjectDirectiveIRNode node);
     }
 }

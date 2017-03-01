@@ -49,12 +49,12 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
 
                     typeName = typeName.Replace("<TModel>", "<" + modelType + ">");
 
-                    var injectNode = new InjectIRNode()
+                    var injectNode = new InjectDirectiveIRNode()
                     {
                         TypeName = typeName,
                         MemberName = memberName,
                         Source = directive.Source,
-                        Parent = visitor.Class
+                        Parent = visitor.Class,
                     };
 
                     visitor.Class.Children.Add(injectNode);

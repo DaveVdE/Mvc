@@ -35,7 +35,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
             Assert.NotNull(@class);
             Assert.Equal(2, @class.Children.Count);
 
-            var node = Assert.IsType<InjectIRNode>(@class.Children[1]);
+            var node = Assert.IsType<InjectDirectiveIRNode>(@class.Children[1]);
             Assert.Equal("PropertyType", node.TypeName);
             Assert.Equal("PropertyName", node.MemberName);
         }
@@ -65,7 +65,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
             Assert.NotNull(@class);
             Assert.Equal(2, @class.Children.Count);
 
-            var node = Assert.IsType<InjectIRNode>(@class.Children[1]);
+            var node = Assert.IsType<InjectDirectiveIRNode>(@class.Children[1]);
             Assert.Equal("PropertyType2", node.TypeName);
             Assert.Equal("PropertyName", node.MemberName);
         }
@@ -94,7 +94,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
             Assert.NotNull(@class);
             Assert.Equal(2, @class.Children.Count);
 
-            var node = Assert.IsType<InjectIRNode>(@class.Children[1]);
+            var node = Assert.IsType<InjectDirectiveIRNode>(@class.Children[1]);
             Assert.Equal("PropertyType<dynamic>", node.TypeName);
             Assert.Equal("PropertyName", node.MemberName);
         }
@@ -124,7 +124,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
             Assert.NotNull(@class);
             Assert.Equal(2, @class.Children.Count);
 
-            var node = Assert.IsType<InjectIRNode>(@class.Children[1]);
+            var node = Assert.IsType<InjectDirectiveIRNode>(@class.Children[1]);
             Assert.Equal("PropertyType<ModelType>", node.TypeName);
             Assert.Equal("PropertyName", node.MemberName);
         }
@@ -154,7 +154,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
             Assert.NotNull(@class);
             Assert.Equal(2, @class.Children.Count);
 
-            var node = Assert.IsType<InjectIRNode>(@class.Children[1]);
+            var node = Assert.IsType<InjectDirectiveIRNode>(@class.Children[1]);
             Assert.Equal("PropertyType<ModelType>", node.TypeName);
             Assert.Equal("PropertyName", node.MemberName);
         }

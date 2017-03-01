@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Razor.Evolution.Intermediate;
 
 namespace Microsoft.AspNetCore.Mvc.Razor.Host
 {
-    public class InjectIRNode : ExtensionIRNode
+    public class InjectDirectiveIRNode : ExtensionIRNode
     {
         public string TypeName { get; set; }
 
@@ -28,7 +28,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
                 throw new ArgumentNullException(nameof(visitor));
             }
 
-            AcceptExtensionNode<InjectIRNode>(this, visitor);
+            AcceptExtensionNode<InjectDirectiveIRNode>(this, visitor);
         }
 
         public override TResult Accept<TResult>(RazorIRNodeVisitor<TResult> visitor)
@@ -38,12 +38,17 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
                 throw new ArgumentNullException(nameof(visitor));
             }
 
-            return AcceptExtensionNode<InjectIRNode, TResult>(this, visitor);
+            return AcceptExtensionNode<InjectDirectiveIRNode, TResult>(this, visitor);
         }
 
         public override void WriteNode(RuntimeTarget target, CSharpRenderingContext context)
         {
-            var extension = target.GetExtension<IInjectTargetExtension>();
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            var extension = target.GetExtension<IInjectDirectiveTargetExtension>();
             extension.WriteInjectProperty(context, this);
         }
     }

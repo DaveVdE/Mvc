@@ -6,11 +6,21 @@ using Microsoft.AspNetCore.Razor.Evolution.CodeGeneration;
 
 namespace Microsoft.AspNetCore.Mvc.Razor.Host
 {
-    public class InjectTargetExtension : IInjectTargetExtension
+    public class InjectDirectiveTargetExtension : IInjectDirectiveTargetExtension
     {
-        public void WriteInjectProperty(CSharpRenderingContext context, InjectIRNode node)
+        public void WriteInjectProperty(CSharpRenderingContext context, InjectDirectiveIRNode node)
         {
-            var property = $"[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]{Environment.NewLine}public {node.TypeName} {node.MemberName} {{ get; private set; }}";
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(node));
+            }
+
+            var property = $"[global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]{Environment.NewLine}public {node.TypeName} {node.MemberName} {{ get; private set; }}";
 
             if (node.Source.HasValue)
             {

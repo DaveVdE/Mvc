@@ -9,15 +9,15 @@ using Xunit;
 
 namespace Microsoft.AspNetCore.Mvc.Razor.Host
 {
-    public class InjectTargetExtensionTest
+    public class InjectDirectiveTargetExtensionTest
     {
         [Fact]
-        public void InjectTargetExtension_WritesProperty()
+        public void InjectDirectiveTargetExtension_WritesProperty()
         {
             // Arrange
             var context = GetRenderingContext();
-            var target = new InjectTargetExtension();
-            var node = new InjectIRNode()
+            var target = new InjectDirectiveTargetExtension();
+            var node = new InjectDirectiveIRNode()
             {
                 TypeName = "PropertyType",
                 MemberName = "PropertyName",
@@ -28,18 +28,18 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
 
             // Assert
             Assert.Equal(
-                "[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]" + Environment.NewLine +
+                "[global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]" + Environment.NewLine +
                 "public PropertyType PropertyName { get; private set; }" + Environment.NewLine,
                 context.Writer.Builder.ToString());
         }
 
         [Fact]
-        public void InjectTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet()
+        public void InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet()
         {
             // Arrange
             var context = GetRenderingContext();
-            var target = new InjectTargetExtension();
-            var node = new InjectIRNode()
+            var target = new InjectDirectiveTargetExtension();
+            var node = new InjectDirectiveIRNode()
             {
                 TypeName = "PropertyType<ModelType>",
                 MemberName = "PropertyName",
@@ -57,7 +57,7 @@ namespace Microsoft.AspNetCore.Mvc.Razor.Host
             // Assert
             Assert.Equal(
                 "#line 2 \"test-path\"" + Environment.NewLine +
-                "[Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]" + Environment.NewLine +
+                "[global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]" + Environment.NewLine +
                 "public PropertyType<ModelType> PropertyName { get; private set; }" + Environment.NewLine + Environment.NewLine +
                 "#line default" + Environment.NewLine +
                 "#line hidden" + Environment.NewLine,
